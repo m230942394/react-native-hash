@@ -1,6 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
 /* eslint-disable no-use-before-define */
 
+import WordArray from './lib/core/WordArray.js';
 import Hash from './lib/index.js';
 
 const {
@@ -19,6 +20,10 @@ const {
  * @param {string} algorithm
  */
 const hmacString = async (string, key, algorithm) => {
+  if (string instanceof Uint8Array) {
+    string = new WordArray(string);
+  }
+  
   switch (algorithm) {
     case 'HmacMD5': {
       const HMac = await HmacMD5(string, key);
